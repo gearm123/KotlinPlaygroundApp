@@ -1,13 +1,15 @@
 package com.test.funfactsapp.data
 
 import android.content.Context
-import android.widget.Toast
-import androidx.lifecycle.LiveData
 import androidx.room.Room
 import com.test.funfactsapp.db.FunFact
 import com.test.funfactsapp.db.FunFactsDao
 import com.test.funfactsapp.db.FunFactsDataBase
 import com.test.funfactsapp.network.ApiAdapter
+import com.test.funfactsapp.network.FunFactApiState
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
+import retrofit2.Response
 
 
 class FunFactRepository(context: Context) {
@@ -37,22 +39,26 @@ class FunFactRepository(context: Context) {
         funFactDao.insert(funFact)
     }
 
-    fun getFactsFromDb(): List<FunFact>? {
-        return  funFactDao.getAllEvents()
+    suspend fun getFactFromDb(id: Int): Flow<FunFact> {
+        return flow {
+            val funFactList: List<FunFact> = funFactDao.getAllEvents()
+            emit(funFactList[0])
+        }
     }
 
-    suspend fun downloadFact(): String? {
-        return try {
-            val response = ApiAdapter.apiClient.getRandomFact()
-            // Check if response was successful.
-            if (response.isSuccessful && response.body() != null) {
-                val data = response.body()!!
-                data.text
-            } else {
-                null
-            }
-        } catch (e: Exception) {
-            null
+    suspend fun getFactsFromDb(): Flow<List<FunFact>> {
+        return flow {
+            val funFactList: List<FunFact> = funFactDao.getAllEvents()
+            emit(funFactList)
+        }
+    }
+
+    suspend fun downloadFact(): Flow<FunFactApiState<Response<FunFact>>> {
+        return flow {
+
+            // get the comment Data from the api
+            val factResponse = ApiAdapter.apiClient.getRandomFact()
+            emit(FunFactApiState.success(factResponse))
         }
     }
 

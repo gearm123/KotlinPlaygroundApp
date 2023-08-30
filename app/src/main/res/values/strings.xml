@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">FunFactsApp</string>
+    <string name="save_fact">Save Fact</string>
+    <string name="show_all_facts">Show All Saved Facts</string>
+    <string name="hide_all_facts">Hide Facts</string>
+    <string name="download_fact">Download Fact</string>
 </resources>

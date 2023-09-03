@@ -1,21 +1,27 @@
 package com.test.funfactsapp.data
 
 import android.content.Context
+import androidx.lifecycle.LiveData
 import androidx.room.Room
 import com.test.funfactsapp.db.FunFact
 import com.test.funfactsapp.db.FunFactsDao
 import com.test.funfactsapp.db.FunFactsDataBase
 import com.test.funfactsapp.network.ApiAdapter
 import com.test.funfactsapp.network.FunFactApiState
+import com.test.funfactsapp.network.Status
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.withContext
 import retrofit2.Response
 
 
-class FunFactRepository(context: Context) {
+class FunFactRepository(
+    context: Context,
+    private val myDispatcher: CoroutineDispatcher
+) {
     private var funFactDao: FunFactsDao
 
-    //get from shared preferences all the events and the event count
     init {
         val db = Room.databaseBuilder(
             context,
@@ -24,43 +30,50 @@ class FunFactRepository(context: Context) {
         funFactDao = db.getFunFactDao()
     }
 
-    companion object {
 
-        private var instance: FunFactRepository? = null
+    suspend fun insert(funFact: FunFact) {
+        withContext(myDispatcher) {
+            funFactDao.insert(funFact)
+        }
+    }
 
-        fun getInstance(context: Context) =
-            instance ?: synchronized(this) {
-                instance ?: FunFactRepository(context).also { instance = it }
+    suspend fun getFactFromDb(id: Int): FunFactApiState<FunFact> {
+        var apiState: FunFactApiState<FunFact> =
+            FunFactApiState(Status.ERROR, null, "")
+        val allFacts: List<FunFact>
+        withContext(myDispatcher) {
+            allFacts = funFactDao.getAllEvents()
+            apiState = FunFactApiState(Status.SUCCESS, allFacts[0], "")
+        }
+        return apiState
+    }
+
+    suspend fun getFactsFromDb(): List<FunFact> {
+        var funFactList: List<FunFact> = listOf()
+        withContext(myDispatcher) {
+            funFactList = funFactDao.getAllEvents()
+        }
+        return funFactList
+    }
+
+    suspend fun downloadFact(): FunFactApiState<FunFact> {
+        var apiState: FunFactApiState<FunFact> =
+            FunFactApiState(Status.ERROR, null, "")
+        withContext(myDispatcher) {
+            var response: FunFact? = null
+            try {
+              response  = ApiAdapter.apiClient.getRandomFact()?.body()
+            }catch (e : java.lang.Exception){
+
             }
-    }
-
-
-    fun insert(funFact: FunFact) {
-        funFactDao.insert(funFact)
-    }
-
-    suspend fun getFactFromDb(id: Int): Flow<FunFact> {
-        return flow {
-            val funFactList: List<FunFact> = funFactDao.getAllEvents()
-            emit(funFactList[0])
+            response?.also {
+                apiState = FunFactApiState(
+                    Status.SUCCESS,
+                    response,
+                    ""
+                )
+            }
         }
+        return apiState
     }
-
-    suspend fun getFactsFromDb(): Flow<List<FunFact>> {
-        return flow {
-            val funFactList: List<FunFact> = funFactDao.getAllEvents()
-            emit(funFactList)
-        }
-    }
-
-    suspend fun downloadFact(): Flow<FunFactApiState<Response<FunFact>>> {
-        return flow {
-
-            // get the comment Data from the api
-            val factResponse = ApiAdapter.apiClient.getRandomFact()
-            emit(FunFactApiState.success(factResponse))
-        }
-    }
-
-
 }

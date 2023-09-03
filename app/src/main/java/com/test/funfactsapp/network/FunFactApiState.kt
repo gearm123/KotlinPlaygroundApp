@@ -1,6 +1,6 @@
 package com.test.funfactsapp.network
 
-data class FunFactApiState<out T>(val status: Status, val data: T?, val message: String?) {
+data class FunFactApiState<out T>(var status: Status, val data: T?, val message: String?) {
 
     companion object {
 

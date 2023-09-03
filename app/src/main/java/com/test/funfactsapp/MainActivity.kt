@@ -41,7 +41,7 @@ class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
         )[FunFactsViewModel::class.java]
 
         funFactsViewModel.getCurrentFact().observe(this, Observer {
-            displayText.text = it.data?.text ?: "fact not found"
+            displayText.text = it.data?.text ?: getString(R.string.fact_error)
         })
 
         funFactsViewModel.getCachedFacts().observe(this, Observer {

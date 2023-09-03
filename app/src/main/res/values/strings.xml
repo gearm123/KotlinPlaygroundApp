@@ -5,4 +5,5 @@
     <string name="hide_all_facts">Hide Facts</string>
     <string name="download_fact">Download Fact</string>
     <string name="query_hint">What fact are you looking for?</string>
+    <string name="fact_error">Fact not found</string>
 </resources>

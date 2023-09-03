@@ -20,9 +20,9 @@
         android:id="@+id/download_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
+        android:layout_marginLeft="5dp"
         android:text="@string/download_fact"
-        android:textSize="10sp"
+        android:textSize="9sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -33,7 +33,7 @@
         android:layout_marginLeft="10dp"
         android:layout_marginTop="10dp"
         android:text="@string/show_all_facts"
-        android:textSize="10sp"
+        android:textSize="9sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@+id/download_button" />
 
@@ -42,9 +42,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
+        android:layout_marginRight="5dp"
         android:text="@string/save_fact"
-        android:textSize="10sp"
+        android:textSize="9sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@+id/display_all" />
 

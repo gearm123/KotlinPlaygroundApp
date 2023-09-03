@@ -1,7 +1,6 @@
 package com.test.funfactsapp.data
 
 import android.content.Context
-import androidx.lifecycle.LiveData
 import androidx.room.Room
 import com.test.funfactsapp.db.FunFact
 import com.test.funfactsapp.db.FunFactsDao
@@ -10,10 +9,7 @@ import com.test.funfactsapp.network.ApiAdapter
 import com.test.funfactsapp.network.FunFactApiState
 import com.test.funfactsapp.network.Status
 import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.withContext
-import retrofit2.Response
 
 
 class FunFactRepository(

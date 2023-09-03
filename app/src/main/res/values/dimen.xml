@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="recycler_view_item_margin">5dp</dimen>
+    <dimen name="recycler_view_top_margin">50dp</dimen>
+    <dimen name="menu_button_text_size">9sp</dimen>
+    <dimen name="middle_button_margin_left">10dp</dimen>
+    <dimen name="edge_button_margin">5dp</dimen>
+
+</resources>

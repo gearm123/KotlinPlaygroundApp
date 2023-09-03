@@ -20,9 +20,9 @@
         android:id="@+id/download_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="5dp"
+        android:layout_marginLeft="@dimen/edge_button_margin"
         android:text="@string/download_fact"
-        android:textSize="9sp"
+        android:textSize="@dimen/menu_button_text_size"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -30,10 +30,9 @@
         android:id="@+id/display_all"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginLeft="@dimen/middle_button_margin_left"
         android:text="@string/show_all_facts"
-        android:textSize="9sp"
+        android:textSize="@dimen/menu_button_text_size"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@+id/download_button" />
 
@@ -41,10 +40,10 @@
         android:id="@+id/save_Button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="5dp"
+        android:layout_marginLeft="@dimen/middle_button_margin_left"
+        android:layout_marginRight="@dimen/edge_button_margin"
         android:text="@string/save_fact"
-        android:textSize="9sp"
+        android:textSize="@dimen/menu_button_text_size"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@+id/display_all" />
 
@@ -53,7 +52,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white"
-        android:queryHint="what fact are you looking for ?"
+        android:queryHint="@string/query_hint"
         android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -63,7 +62,7 @@
         android:id="@+id/rv_design"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="@dimen/recycler_view_top_margin"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

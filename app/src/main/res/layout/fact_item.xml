@@ -8,8 +8,8 @@
         android:id="@+id/fact_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="5dp"
-        android:layout_marginTop="5dp"
+        android:layout_marginLeft="@dimen/recycler_view_item_margin"
+        android:layout_marginTop="@dimen/recycler_view_item_margin"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
